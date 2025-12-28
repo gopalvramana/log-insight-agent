@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @Setter
 @Getter
-public class LogAnalysisResponse {
+public class LogInsightResponse {
     String errorType;
     String rootCause;
     String confidence;

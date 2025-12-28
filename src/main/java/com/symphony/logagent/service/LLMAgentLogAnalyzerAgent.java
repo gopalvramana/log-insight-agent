@@ -3,7 +3,7 @@ package com.symphony.logagent.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.symphony.logagent.builder.PromptBuilder;
-import com.symphony.logagent.model.LogAnalysisResponse;
+import com.symphony.logagent.model.LogInsightResponse;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +18,14 @@ public class LLMAgentLogAnalyzerAgent {
         this.chatModel = chatModel;
         this.promptBuilder = promptBuilder;
     }
-    public LogAnalysisResponse analyze(String logs) {
+    public LogInsightResponse analyze(String logs) {
         String prompt = promptBuilder.buildPrompt(logs);
         System.out.println("Generated Prompt: " + prompt);
         String rawResponse = chatModel.call(prompt);
         System.out.println("Raw LLM Response: " + rawResponse);
 
         try {
-            return objectMapper.readValue(rawResponse, LogAnalysisResponse.class);
+            return objectMapper.readValue(rawResponse, LogInsightResponse.class);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse LLM response", e);
         }

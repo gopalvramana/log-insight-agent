@@ -1,7 +1,7 @@
 package com.symphony.logagent.controller;
 
 import com.symphony.logagent.model.LogAnalysisRequest;
-import com.symphony.logagent.model.LogAnalysisResponse;
+import com.symphony.logagent.model.LogInsightResponse;
 import com.symphony.logagent.service.LLMAgentLogAnalyzerAgent;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +19,7 @@ public class LogInsightController {
     }
 
     @PostMapping("/analyze")
-    public LogAnalysisResponse analyze(@RequestBody LogAnalysisRequest request) {
+    public LogInsightResponse analyze(@RequestBody LogAnalysisRequest request) {
         return agent.analyze(request.getLogs());
     }
 }

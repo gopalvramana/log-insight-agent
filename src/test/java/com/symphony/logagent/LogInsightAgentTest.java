@@ -1,7 +1,7 @@
 package com.symphony.logagent;
 
 import com.symphony.logagent.service.LLMAgentLogAnalyzerAgent;
-import com.symphony.logagent.model.LogAnalysisResponse;
+import com.symphony.logagent.model.LogInsightResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -32,7 +32,7 @@ public class LogInsightAgentTest {
         when(chatModel.call(prompt)).thenReturn(llmResponse);
 
         // Act
-        LogAnalysisResponse result = promptBuilder.analyze(log);
+        LogInsightResponse result = promptBuilder.analyze(log);
 
         // Assert
         assertEquals(llmResponse, result);
