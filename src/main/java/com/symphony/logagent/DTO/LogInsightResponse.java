@@ -1,5 +1,5 @@
 package com.symphony.logagent.DTO;
 
-public record LogAnalysisResponse(
+public record LogInsightResponse(
         String result
 ) {}

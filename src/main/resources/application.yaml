@@ -6,5 +6,7 @@ spring:
       chat:
         options:
           model: gpt-4o-mini
+          timeout: 30s
+
 
 

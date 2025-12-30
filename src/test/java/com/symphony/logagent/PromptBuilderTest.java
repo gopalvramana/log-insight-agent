@@ -1,6 +1,6 @@
 package com.symphony.logagent;
 
-import com.symphony.logagent.service.LLMAgentLogAnalyzerAgent;
+import com.symphony.logagent.service.LogInsightAgent;
 import com.symphony.logagent.knowledge.ErrorPatternRepository;
 import com.symphony.logagent.knowledge.RemediationRepository;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class PromptBuilderTest {
     @InjectMocks
-    private LLMAgentLogAnalyzerAgent promptBuilder;
+    private LogInsightAgent promptBuilder;
 
     @Mock
     private ErrorPatternRepository errorRepo;

@@ -1,6 +1,6 @@
 package com.symphony.logagent;
 
-import com.symphony.logagent.service.LLMAgentLogAnalyzerAgent;
+import com.symphony.logagent.service.LogInsightAgent;
 import com.symphony.logagent.model.LogInsightResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class LogInsightAgentTest {
     @Mock
-    private LLMAgentLogAnalyzerAgent promptBuilder;
+    private LogInsightAgent promptBuilder;
 
     @Mock
     private ChatModel chatModel;

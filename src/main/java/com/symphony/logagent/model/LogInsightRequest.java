@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
-public class LogAnalysisRequest {
+public class LogInsightRequest {
     String logs;
     String service;
     String environment;

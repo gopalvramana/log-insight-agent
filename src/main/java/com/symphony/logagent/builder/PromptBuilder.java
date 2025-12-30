@@ -4,6 +4,8 @@ import com.symphony.logagent.knowledge.ErrorPatternRepository;
 import com.symphony.logagent.knowledge.RemediationRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class PromptBuilder {
     private final ErrorPatternRepository errorRepo;
@@ -79,4 +81,40 @@ public class PromptBuilder {
         return prompt.toString();
     }
 
+    public String buildPrompt(String logs, Map<String, String> knownErrors,
+                              Map<String, String> knownRemediations) {
+        StringBuilder prompt = new StringBuilder();
+
+        prompt.append("""
+        You are a production incident analysis agent.
+        Analyze the log and provide:
+        - Root cause
+        - Explanation
+        - Suggested remediation
+        """);
+
+        prompt.append("\nLOG:\n").append(logs).append("\n\n");
+
+        prompt.append("KNOWN ERROR PATTERNS:\n");
+        knownErrors.forEach((k, v) ->
+                prompt.append("- ").append(k).append(": ").append(v).append("\n"));
+
+        prompt.append("\nKNOWN REMEDIATIONS:\n");
+        knownRemediations.forEach((k, v) ->
+                prompt.append("- ").append(k).append(": ").append(v).append("\n"));
+
+        prompt.append("""
+        Return ONLY valid JSON in the following format.
+        Do not include any text outside JSON.
+                {
+                  "errorType": "",
+                  "rootCause": "",
+                  "suggestedAction": "",
+                  "confidence": "",
+                  "explanation": ""
+                }
+        """);
+
+        return prompt.toString();
+    }
 }
