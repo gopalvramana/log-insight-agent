@@ -7,6 +7,23 @@ spring:
         options:
           model: gpt-4o-mini
           timeout: 30s
+  datasource:
+    initialization-mode: always
+    sql:
+      init:
+        mode: always
+    url: jdbc:h2:mem:logagentdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+    jpa:
+      hibernate:
+        ddl-auto: create
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 
 

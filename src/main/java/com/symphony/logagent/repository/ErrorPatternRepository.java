@@ -1,4 +1,4 @@
-package com.symphony.logagent.knowledge;
+package com.symphony.logagent.repository;
 
 import org.springframework.stereotype.Repository;
 

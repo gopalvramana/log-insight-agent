@@ -1,5 +1,6 @@
 package com.symphony.logagent;
 
+import com.symphony.logagent.builder.PromptBuilder;
 import com.symphony.logagent.service.LogInsightAgent;
 import com.symphony.logagent.model.LogInsightResponse;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,10 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class LogInsightAgentTest {
     @Mock
-    private LogInsightAgent promptBuilder;
+    private PromptBuilder promptBuilder;
+
+    @Mock
+    private LogInsightAgent agent;
 
     @Mock
     private ChatModel chatModel;
@@ -32,7 +36,7 @@ public class LogInsightAgentTest {
         when(chatModel.call(prompt)).thenReturn(llmResponse);
 
         // Act
-        LogInsightResponse result = promptBuilder.analyze(log);
+        LogInsightResponse result = agent.analyze(log);
 
         // Assert
         assertEquals(llmResponse, result);

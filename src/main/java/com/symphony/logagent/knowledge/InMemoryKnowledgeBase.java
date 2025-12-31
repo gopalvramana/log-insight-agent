@@ -20,13 +20,11 @@ public class InMemoryKnowledgeBase implements KnowledgeBase {
 
     @Override
     public Map<String, String> getKnownErrors() {
-        // Implementation here
         return knownErrors;
     }
 
     @Override
     public Map<String, String> getKnownRemediations() {
-        // Implementation here
         return knownRemediations;
     }
 }

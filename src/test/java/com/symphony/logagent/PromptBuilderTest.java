@@ -1,8 +1,8 @@
 package com.symphony.logagent;
 
 import com.symphony.logagent.service.LogInsightAgent;
-import com.symphony.logagent.knowledge.ErrorPatternRepository;
-import com.symphony.logagent.knowledge.RemediationRepository;
+import com.symphony.logagent.repository.ErrorPatternRepository;
+import com.symphony.logagent.repository.RemediationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
