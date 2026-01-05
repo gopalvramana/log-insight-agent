@@ -24,6 +24,4 @@ public class ErrorKnowledgeEntity {
 
     @Column(length = 2000)
     private String remediation;
-
-
 }

@@ -1,7 +1,7 @@
 package com.symphony.logagent;
 
 import com.symphony.logagent.builder.PromptBuilder;
-import com.symphony.logagent.service.LogInsightAgent;
+import com.symphony.logagent.service.LogInsightAgentService;
 import com.symphony.logagent.model.LogInsightResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ public class LogInsightAgentTest {
     private PromptBuilder promptBuilder;
 
     @Mock
-    private LogInsightAgent agent;
+    private LogInsightAgentService agent;
 
     @Mock
     private ChatModel chatModel;

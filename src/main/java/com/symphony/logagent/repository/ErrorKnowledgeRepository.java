@@ -6,5 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ErrorKnowledgeRepository extends JpaRepository<ErrorKnowledgeEntity, Long> {
+
     List<ErrorKnowledgeEntity> findAll();
+
+    List<ErrorKnowledgeEntity> findByErrorKey(String errorKey);
+
 }

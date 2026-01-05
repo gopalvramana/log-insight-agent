@@ -11,6 +11,7 @@ public class LogNormalizer {
     private static final Pattern EXCEPTION_PATTERN =
             Pattern.compile("((?:[a-zA-Z_$][\\w$]*\\.)*(?:[A-Z][\\w$]*)(Exception|Error))");
 
+    // Normalizes a raw log message into a structured format
     public NormalizedLog normalizeLog(String rawLog) {
         System.out.println("Normalizing log: " + rawLog);
         if (rawLog == null || rawLog.isBlank()) {
@@ -29,8 +30,11 @@ public class LogNormalizer {
                 .trim();
 
         return new NormalizedLog(exceptionType, cleanedMessage, rawLog);
+    }
 
-
-
+    // Extracts the exception type from a log message
+    public String extractExceptionType(String logMessage) {
+        Matcher matcher = EXCEPTION_PATTERN.matcher(logMessage);
+        return matcher.find() ? matcher.group(1) : "UNKNOWN";
     }
 }
