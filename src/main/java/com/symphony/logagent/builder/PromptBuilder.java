@@ -5,12 +5,14 @@ import com.symphony.logagent.repository.ErrorPatternRepository;
 import com.symphony.logagent.repository.RemediationRepository;
 import com.symphony.logagent.service.KnowledgeService;
 import com.symphony.logagent.util.LogNormalizer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class PromptBuilder {
     private final ErrorPatternRepository errorRepo;
@@ -99,11 +101,14 @@ public class PromptBuilder {
     }*/
 
     public String buildPrompt(String rawLog) {
+
+        log.debug("BuildPrompt invoked..");
         StringBuilder prompt = new StringBuilder();
 
         //get normalized log from raw log
         NormalizedLog normalized = logNormalizer.normalizeLog(rawLog);
         System.out.println("Normalized Log: " + normalized);
+        log.info("Normalized Log: {}", normalized);
 
         //get exception type string
         String exceptionType = logNormalizer.extractExceptionType(rawLog);
@@ -111,9 +116,10 @@ public class PromptBuilder {
 
         // 1. Agent Role
         prompt.append("""
-        You are a Log Insight Agent used in production Java microservices.
-        You analyze application logs and identify error types, root causes,
-        and remediation actions.
+        /n/n
+        - You are a Log Insight Agent used in production Java microservices.
+        - You analyze application logs and identify error types, root causes,
+          and remediation actions.
         
         """);
 
@@ -122,7 +128,7 @@ public class PromptBuilder {
         Rules:
         - Use only the provided error patterns and remediation knowledge.
         - Do not invent new error types.
-        - If information is insufficient, respond with null values.
+        - If information is insufficient, respond with "Insufficient knowledge".
         - Be concise and technical.
         
         """);
@@ -134,12 +140,14 @@ public class PromptBuilder {
         // 4. Knowledge: Error Patterns
         prompt.append("\n\nKNOWN ERROR PATTERNS:\n");
         List<String> errorPatterns = knowledgeService.getKnownErrorPatterns(exceptionType);
+        log.info("Retrieved Error Patterns: {}", errorPatterns.size());
         for (String pattern : errorPatterns) {
             prompt.append("- ").append(pattern).append("\n");
         }
         // 5. Knowledge: Remediations
         prompt.append("\nKNOWN REMEDIATIONS:\n");
         List<String> remediations = knowledgeService.getKnownRemediations(exceptionType);
+        log.info("Retrieved Remediations: {}", remediations.size());
         for (String remediation : remediations) {
             prompt.append("- ").append(remediation).append("\n\n");
         }
@@ -152,11 +160,11 @@ public class PromptBuilder {
                   "errorType": "",
                   "rootCause": "",
                   "suggestedAction": "",
-                  "confidence": "",
+                  "confidence": "number between 0 and 1",
                   "explanation": ""
                 }
         """);
-
+        log.info("Prompt built successfully: {}", prompt.toString());
         return prompt.toString();
     }
 }

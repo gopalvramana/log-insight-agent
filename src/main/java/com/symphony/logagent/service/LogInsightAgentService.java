@@ -40,9 +40,8 @@ public class LogInsightAgentService {
 
         try {
         String prompt = promptBuilder.buildPrompt(rawLog);
-        System.out.println("Generated Prompt: " + prompt);
         rawResponse = chatModel.call(prompt);
-        System.out.println("Raw LLM Response: " + rawResponse);
+        log.info("Raw LLM Response: {}", rawResponse);
         } catch (Exception ex) {
             log.error("LLM analysis failed", ex);
             return LogInsightResponse.fallback("LLM unavailable. Please retry later.");
