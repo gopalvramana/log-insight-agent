@@ -1,11 +1,13 @@
 package com.symphony.logagent.util;
 
 import com.symphony.logagent.DTO.NormalizedLog;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Component
 public class LogNormalizer {
     private static final Pattern EXCEPTION_PATTERN =
@@ -21,6 +23,8 @@ public class LogNormalizer {
         Matcher matcher = EXCEPTION_PATTERN.matcher(rawLog);
 
         String exceptionType = matcher.find() ? matcher.group(1) : "UNKNOWN";
+        log.info("Extracted exception type: {}", exceptionType);
+
 
         // Simple cleanup (Phase 1)
         String cleanedMessage = rawLog
